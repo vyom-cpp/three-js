@@ -31,7 +31,7 @@ mesh.scale.x = 3;
 scene.add(mesh);
 
 const canvas = document.querySelector( 'canvas' );
-let renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); // AntiAlias is used to turn off the jagged lines:- means lines with rough, uneven edges or shapes (for smoother output)
+let renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); // AntiAlias is used to turn off the jagged lines:- means lines with rough, uneven edges or shapes (for smoother)
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera); // Renderer.render is used for Keep printing whatever in our scene the camera can see 
 
