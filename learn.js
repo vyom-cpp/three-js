@@ -31,6 +31,20 @@ mesh.scale.x = 3;
 scene.add(mesh);
 
 const canvas = document.querySelector( 'canvas' );
-let renderer = new THREE.WebGLRenderer({ canvas: canvas });
+let renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true }); // AntiAlias is used to turn off the jagged lines:- means lines with rough, uneven edges or shapes (for smoother output)
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera); // Renderer.render is used for Keep printing whatever in our scene the camera can see 
+
+let clock = new THREE.Clock(); // Gives you clock
+
+
+function animate(){
+    window.requestAnimationFrame(animate); // It shows that whatever is the speed of computer (fps), run this function animate() that many times
+    renderer.render(scene, camera);
+    mesh.rotation.x = clock.getElapsedTime() * 3; // This getElapsedTime will make sure that on each and every device, the rotation speed remains same
+    // mesh.rotation.y += 0.02;
+    // mesh.rotation.z += 0.03;
+    // mesh.scale.x += .01;
+}
+
+animate();
