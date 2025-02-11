@@ -21,6 +21,13 @@ scene.add(cube);
 
 camera.position.z = 5;
 
+window.addEventListener("resize", () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+
+  camera.updateProjectionMatrix(); // It stops the camera from stretching or squeezing with the increase or decrease of the window size
+});
+
 function animate() {
   window.requestAnimationFrame(animate);
 
