@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import GUI from 'lil-gui';
 
 // Create the scene
 const scene = new THREE.Scene();
@@ -15,42 +16,56 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Directional light with high intensity
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(0, 0, 1);
-scene.add(directionalLight);
+// const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+// directionalLight.position.set(0, 0, 1);
+// scene.add(directionalLight);
 
-// Adding studio lighting as we are using MeshStandardMaterial
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(0, 0, 1);
+// // Adding studio lighting as we are using MeshStandardMaterial
+// const light = new THREE.DirectionalLight(0xffffff, 1);
+// light.position.set(0, 0, 1);
+// scene.add(light);
+
+// // HighIntensityLight
+// const highIntensityLight = new THREE.DirectionalLight(0xffffff, 10);
+// scene.add(highIntensityLight);
+
+// // Adding ambient light to the scene
+// const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+// scene.add(ambientLight);
+
+// // Making a point to stimulate the light bulb
+// const pointLight = new THREE.PointLight(0xffffff, 1);
+// pointLight.position.set(5, 5, 5);
+// scene.add(pointLight);
+
+// // Light helper to show the position of the light
+// const lightHelper = new THREE.PointLightHelper(pointLight, 5);
+// lightHelper.position.set(5, 5, 5);
+// scene.add(lightHelper);
+
+// const highIntensityLightHelper = new THREE.PointLight(highIntensityLight, 5);
+// highIntensityLightHelper.position.set(5, 5, 5);
+// scene.add(highIntensityLightHelper);
+
+// const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5);
+// scene.add(directionalLightHelper);
+
+// const pointLightHelper = new THREE.PointLightHelper(pointLight, 5);
+// scene.add(pointLightHelper);
+
+
+
+// LIGHTS
+
+// 1. Ambient Light:- It globally illuminates all objects in the scene equally. It cannot be used to cast shadows.
+
+// 2. Directional Light:- A light that gets emitted in the specific direction. It is way far from the object, the common use case is to stimulate daylight.
+
+// 3. Point Light:- A light that get emitted from a single point in all directions. A common use case for this is to replicate the light emitted from a bare lightbulb.
+
+
+let light = new THREE.AmbientLight(0xffffff, 1);
 scene.add(light);
-
-// HighIntensityLight
-const highIntensityLight = new THREE.DirectionalLight(0xffffff, 10);
-scene.add(highIntensityLight);
-
-// Adding ambient light to the scene
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
-
-// Making a point to stimulate the light bulb
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(5, 5, 5);
-scene.add(pointLight);
-
-// Light helper to show the position of the light
-const lightHelper = new THREE.PointLightHelper(pointLight, 5);
-lightHelper.position.set(5, 5, 5);
-scene.add(lightHelper);
-
-const highIntensityLightHelper = new THREE.PointLight(highIntensityLight, 5);
-highIntensityLightHelper.position.set(5, 5, 5);
-scene.add(highIntensityLightHelper);
-
-const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5);
-scene.add(directionalLightHelper);
-
-const pointLightHelper = new THREE.PointLightHelper(pointLight, 5);
-scene.add(pointLightHelper);
 
 
 // TEXTURES
@@ -76,6 +91,31 @@ scene.add(cube);
 
 // Responsiveness
 window.addEventListener('resize', onWindowResize, false);
+
+
+
+// LIL GUI
+const gui = new GUI();
+
+// Material settings
+const materialFolder = gui.addFolder('Material');
+materialFolder.add(material, 'roughness', 0, 1, 0.01);
+materialFolder.add(material, 'metalness', 0, 1, 0.01);
+materialFolder.add(material, 'displacementScale', 0, 1, 0.01);
+materialFolder.open();
+
+// Mesh settings
+const meshFolder = gui.addFolder('Mesh');
+meshFolder.add(cube.rotation, 'x', 0, Math.PI * 2, 0.01).name('Rotation X');
+meshFolder.add(cube.rotation, 'y', 0, Math.PI * 2, 0.01).name('Rotation Y');
+meshFolder.add(cube.rotation, 'z', 0, Math.PI * 2, 0.01).name('Rotation Z');
+meshFolder.add(cube.scale, 'x', 0, Math.PI * 2, 0.01).name('Scale X');
+meshFolder.add(cube.scale, 'y', 0, Math.PI * 2, 0.01).name('Scale Y');
+meshFolder.add(cube.scale, 'z', 0, Math.PI * 2, 0.01).name('Scale Z');
+meshFolder.add(cube.position, 'x', 0, Math.PI * 2, 0.01).name('Position X');
+meshFolder.add(cube.position, 'y', 0, Math.PI * 2, 0.01).name('Position Y');
+meshFolder.add(cube.position, 'z', 0, Math.PI * 2, 0.01).name('Position Z');
+meshFolder.open();
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;

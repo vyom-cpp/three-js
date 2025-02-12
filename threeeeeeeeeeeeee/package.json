@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.5",
+    "lil-gui": "^0.20.0",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.5",
     "three": "^0.173.0"
